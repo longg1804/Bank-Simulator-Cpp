@@ -1,1 +1,0 @@
-During use, if you notice any errors or think we need to improve, add features, please contact me by email: nhlong.ptit@gmail.com
