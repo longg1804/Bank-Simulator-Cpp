@@ -5,7 +5,7 @@
 #include <chrono>
 #include <ctime>
 using namespace std;
-
+ 
 //=====================KHAI BAO========================
 
 int choose, ec, x, point, lang = 1;
