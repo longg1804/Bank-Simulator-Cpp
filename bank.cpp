@@ -5,7 +5,7 @@
 #include <chrono>
 #include <ctime>
 using namespace std;
- 
+
 //=====================KHAI BAO========================
 
 int choose, ec, x, point, lang = 1;
@@ -49,7 +49,7 @@ string realtime() {
 //======================TINH NANG=======================
 
 void changefile() {
-    ofstream out("accountdata.txt");
+    ofstream out("accounts_data.txt");
     for (int i = 0; i < accounts.size(); ++i)
         out << accounts[i].TenDangNhap << '|' << accounts[i].MatKhau << '|' << accounts[i].Ten << '|' << accounts[i].SoTaiKhoan << '|' << accounts[i].SoDu << '|' << "\n";
     out.close();
@@ -96,7 +96,7 @@ void dangnhap() {
 void dangky() {
     cls();
     string tendangnhap, matkhau, sotaikhoan, hoten;
-    ofstream out("accountdata.txt", ios::app);
+    ofstream out("accounts_data.txt", ios::app);
     if (lang == 1) {
         cout << "Ban dang thuc hien dang ky tai khoan, vui long nhap tai khoan va mat khau: " << endl;
         cout << "   Ten dang nhap: ";
@@ -518,7 +518,7 @@ void menu() {
 
 //===================CHUONG TRINH=====================
 int main() {
-    ifstream file("accountdata.txt");
+    ifstream file("accounts_data.txt");
     string line;
     while (getline(file, line)) {
         if (line.empty()) continue;
