@@ -2,7 +2,7 @@
 #define ACCOUNT_H
 #include <string>
 using namespace std;
-class Account {
+class Account { 
     public:
         string TenDangNhap;
         string MatKhau;
