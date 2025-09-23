@@ -2,13 +2,12 @@
 #include "bank.h"
 #include <windows.h>
 #include <conio.h>
-#include <chrono>
-#include <ctime>
 using namespace std;
 
 //=====================KHAI BAO========================
 
-int choose, ec, x, point, lang = 1;
+int ec, x, point, lang = 1;
+char choose;
 vector<Account> accounts;
 
 //=====================TIEN ICH========================
@@ -29,6 +28,8 @@ void luachonsai() {
     delay(2000);
 }
 string chuanhoa(string s) {
+    while (s[0] == ' ') s.erase(0, 1);
+    while (s[s.size() - 1] == ' ') s.erase(s.size() - 1, 1);
     while (s.find("  ") != string::npos) s.erase(s.find("  "), 1);
     s[0] = toupper(s[0]);
     for (int i = 1; i < s.size(); ++i) s[i] = tolower(s[i]);
@@ -45,15 +46,15 @@ string realtime() {
     strftime(c, sizeof(c), "%H:%M:%S %d/%m/%Y", &localtime);
     return string(c);
 }
-
-//======================TINH NANG=======================
-
 void changefile() {
     ofstream out("accounts_data.txt");
     for (int i = 0; i < accounts.size(); ++i)
         out << accounts[i].TenDangNhap << '|' << accounts[i].MatKhau << '|' << accounts[i].Ten << '|' << accounts[i].SoTaiKhoan << '|' << accounts[i].SoDu << '|' << "\n";
     out.close();
 }
+
+//======================TINH NANG=======================
+
 void dangnhap() {
     string tendangnhap, matkhau;
     cls();
@@ -192,25 +193,25 @@ void dangnhapdangky() {
         cout << "Enter your choice: ";
         cin >> choose;
     }
-    if (choose == 0) {
+    if (choose == '0') {
         if (lang == 1)
             cout << "Xin chao va hen gap lai quy khach!";
         else cout << "Thank you and see you again!";
         delay(2000);
-        choose = -1;
+        choose = '-';
         return;
     }
     else
-    if (choose == 1) {
+    if (choose == '1') {
         dangnhap();
     }
     else
-    if (choose == 2) {
+    if (choose == '2') {
         cls();
         dangky();
     }
     else
-    if (choose == 3) {
+    if (choose == '3') {
         if (lang == 1) lang = 2;
         else lang = 1;
         dangnhapdangky();
@@ -236,7 +237,7 @@ void tracuu() {
     pause_anykey();
     return;
 }
-void inhoadon(string s, int point, int tien) {
+void inhoadon(string s, int point, long long tien) {
     ofstream out("transaction_details.txt");
     out << "===================NHLongg Bank===================\n";
     if (lang == 1)
@@ -462,6 +463,65 @@ void chuyentien() {
     }
     else chuyen(point);
 }
+void doimatkhau() {
+    char k;
+    string a, b, c;
+    cls();
+    if (lang == 1)
+        cout << "Dang tien hanh doi mat khau (Nhan 1 de tiep tuc, 0 de quay lai): ";
+    else cout << "Processing password change (Press 1 to    continue, 0 to go back): ";
+    cin >> k;
+    if (k == '0') return;
+    else
+    if (k == '1') {
+        p:
+        cls();
+        if (lang == 1)
+            cout << "Nhap mat khau cu: ";
+        else cout << "Enter current password: ";
+        cin >> a;
+        if (a != accounts[x].MatKhau) {
+            if (lang == 1)
+                cout << "Mat khau da nhap khong dung, vui long thu lai!";
+            else cout << "The password entered is incorrect, please try again!";
+            delay(2000);
+            goto p;
+        }
+        pp:
+        cls();
+        if (lang == 1) {
+            cout << "Nhap mat khau moi: ";
+            cin >> b;
+            cout << "Nhap lai mat khau moi: ";
+            cin >> c;
+        }
+        else {
+            cout << "Enter new password: ";
+            cin >> b;
+            cout << "Re-enter new password: ";
+            cin >> c;
+        }
+        if (c != b) {
+            if (lang == 1)
+                cout << "Mat khau da nhap khong trung khop, vui long thu lai!";
+            else cout << "The passwords entered do not match, please try again!";
+            delay(2000);
+            goto pp;
+        }
+        else {
+            accounts[x].MatKhau = c;
+            changefile();
+            if (lang == 1)
+                cout << "Thay doi mat khau thanh cong!";
+            else cout << "Password changed successfully!";
+            pause_anykey();
+        }
+    }
+    else {
+        luachonsai();
+        doimatkhau();
+    }
+}
 void menu() {
     while (true) {
         cls();
@@ -471,6 +531,7 @@ void menu() {
             cout << "   2. Nap tien\n";
             cout << "   3. Rut tien\n";
             cout << "   4. Chuyen tien noi bo\n";
+            cout << "   5. Doi mat khau\n";
             cout << "   0. Dang xuat\n";
             cout << "Vui long chon: ";
         }
@@ -480,16 +541,12 @@ void menu() {
             cout << "   2. Deposit\n";
             cout << "   3. Withdraw\n";
             cout << "   4. Internal transfer\n";
+            cout << "   5. Change password\n";
             cout << "   0. Log out\n";
             cout << "Please select: ";
         }
         cin >> choose;
-        if ((choose < 0) || (choose > 4)) {
-            luachonsai();
-            menu();
-        }
-        else
-        if (choose == 0) {
+        if (choose == '0') {
             if (lang == 1)
                 cout << "Dang xuat thanh cong, vui long cho...";
             else cout << "Logout successful, please wait...";
@@ -498,20 +555,28 @@ void menu() {
             if (choose == -1) return;
         }
         else
-        if (choose == 1) {
+        if (choose == '1') {
             tracuu();
         }
         else
-        if (choose == 2) {
+        if (choose == '2') {
             naptien();
         }
         else
-        if (choose == 3) {
+        if (choose == '3') {
             ruttien();
         }
         else
-        if (choose == 4) {
+        if (choose == '4') {
             chuyentien();
+        }
+        else
+        if (choose == '5') {
+            doimatkhau();
+        }
+        else {
+            luachonsai();
+            menu();
         }
     }
 }
