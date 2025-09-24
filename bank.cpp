@@ -8,6 +8,7 @@ using namespace std;
 
 int ec, x, point, lang = 1;
 char choose;
+string theme = "dark";
 vector<Account> accounts;
 
 //=====================TIEN ICH========================
@@ -60,11 +61,156 @@ string magiaodich() {
     }
     return res;
 }
+void setcolor(int text, int background = 0) {
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(h, (background << 4) | text);
+}
+void header() {
+    cls();
+    cout << "====================================\n";
+    cout << "          NHLongg Bank  \n";
+    cout << "====================================\n";
+}
 //======================TINH NANG=======================
 
+void doigiaodien() {
+    int a, b;
+    if (theme == "dark") {
+        a = 0;
+        b = 15;
+    }
+    else {
+        a = 15;
+        b = 0;
+    }
+    header();
+    int k;
+    t:
+    if (lang == 1) {
+        cout << "Doi giao dien (Nhan 0 de quay lai): \n";
+        cout << "   1. Giao dien sang\n";
+        cout << "   2. Giao dien toi\n";
+        cout << "   3. Giao dien tuy chinh\n";
+        cout << "Nhap lua chon: ";
+    }
+    else {
+        cout << "Change theme (Press 0 to return): \n";
+        cout << "   1. Light Theme\n";
+        cout << "   2. Dark Theme\n";
+        cout << "   3. Custom Theme\n";
+        cout << "Please select: ";
+    }
+    cin >> k;
+    if ((k < 0) && (k > 3)) {
+        luachonsai();
+        delay(1000);
+        doigiaodien();
+    }
+    else
+    if (k == 0) {
+        return;
+    }
+    else
+    if (k == 1) {
+        a = 0;
+        b = 15;
+        setcolor(a, b);
+        header();
+        if (lang == 1)
+            cout << "Doi giao dien thanh cong!\n";
+        else cout << "Theme changed successfully!\n";
+        return;
+    }
+    else
+    if (k == 2) {
+        a = 15;
+        b = 0;
+        setcolor(a, b);
+        header();
+        if (lang == 1)
+            cout << "Doi giao dien thanh cong!\n";
+        else cout << "Theme changed successfully!\n";
+        return;
+    }
+    else
+    if (k == 3) {
+        p:
+        header();
+        if (lang == 1) {
+            cout << "Tuy chinh giao dien (Nhap 0 de quay tro lai):\n";
+            cout << "   1. Den\n";
+            cout << "   2. Xanh duong\n";
+            cout << "   3. Xanh la\n";
+            cout << "   4. Xanh ngoc\n";
+            cout << "   5. Do\n";
+            cout << "   6. Tim\n";
+            cout << "   7. Vang\n";
+            cout << "   8. Xam nhat\n";
+            cout << "   9. Xam\n";
+            cout << "   10. Xanh duong sang\n";
+            cout << "   11. Xanh la sang\n";
+            cout << "   12. Xanh ngoc sang\n";
+            cout << "   13. Do sang\n";
+            cout << "   14. Tim sang\n";
+            cout << "   15. Vang sang\n";
+            cout << "   16. Trang\n";
+            cout << "Chon mau chu (1 - 16): ";
+        }
+        else {
+            cout << "Theme customization (Press 0 to return):\n";
+            cout << "   1. Black\n";
+            cout << "   2. Blue\n";
+            cout << "   3. Green\n";
+            cout << "   4. Cyan\n";
+            cout << "   5. Red\n";
+            cout << "   6. Purple\n";
+            cout << "   7. Yellow\n";
+            cout << "   8. Light Gray\n";
+            cout << "   9. Gray\n";
+            cout << "   10. Light Blue\n";
+            cout << "   11. Light Green\n";
+            cout << "   12. Light Cyan\n";
+            cout << "   13. Light Red\n";
+            cout << "   14. Light Purple\n";
+            cout << "   15. Light Yellow\n";
+            cout << "   16. White\n";
+            cout << "Choose text color: (1 - 16): ";
+        }
+        cin >> a;
+        if (a == 0) {
+            header();
+            goto t;
+        }
+        if (a > 16) {
+            luachonsai();
+            goto p;
+        }
+        if (lang == 1)
+            cout << "Chon mau nen (1 - 16): ";
+        else cout << "Choose background color (1 - 16): ";
+        cin >> b;
+        if (b > 16) {
+            luachonsai();
+            goto p;
+        }
+        if (a == b) {
+            if (lang == 1)
+                cout << "Mau chu khong duoc trung voi mau nen!\n";
+            else cout << "Text color cannot be the same as the background color!\n";
+            pause_anykey();
+            goto p;
+        }
+        setcolor(a - 1, b - 1);
+        header();
+        if (lang == 1)
+            cout << "Doi giao dien thanh cong!\n";
+        else cout << "Theme changed successfully!\n";
+        return;
+    }
+}
 void dangnhap() {
     string tendangnhap, matkhau;
-    cls();
+    header();
     int dangnhapcheck = 0;
     if (lang == 1) {
         cout << "Dien ten dang nhap va mat khau: \n";
@@ -102,7 +248,7 @@ void dangnhap() {
     }
 }
 void dangky() {
-    cls();
+    header();
     string tendangnhap, matkhau, sotaikhoan, hoten;
     ofstream out("accounts_data.txt", ios::app);
     if (lang == 1) {
@@ -180,13 +326,13 @@ void dangky() {
     }
 }
 void dangnhapdangky() {
-    cls();
-    cout << "NHLongg Bank\n";
+    header();
     if (lang == 1) {
         cout << "Vui long chon:\n";
         cout << "   1. Dang nhap\n";
         cout << "   2. Dang ky\n";
         cout << "   3. Change language (Vietnamese - English)\n";
+        cout << "   4. Doi giao dien\n";
         cout << "   0. Thoat\n";
         cout << "Nhap lua chon: ";
         cin >> choose;
@@ -196,6 +342,7 @@ void dangnhapdangky() {
         cout << "   1. Login\n";
         cout << "   2. Register\n";
         cout << "   3. Doi ngon ngu (Tieng Viet - Tieng Anh)\n";
+        cout << "   4. Custom Theme\n";
         cout << "   0. Exit\n";
         cout << "Enter your choice: ";
         cin >> choose;
@@ -222,23 +369,28 @@ void dangnhapdangky() {
         else lang = 1;
         dangnhapdangky();
     }
+    else
+    if (choose == '4') {
+        doigiaodien();
+        pause_anykey();
+        dangnhapdangky();
+    }
     else {
         luachonsai();
         dangnhapdangky();
     }
 }
 void tracuu() {
-    cls();
-    cout << "NHLongg Bank\n";
+    header();
     if (lang == 1) {
-        cout << "Ho ten:       " << accounts[x].Ten << endl;
+        cout << "Ho ten      : " << accounts[x].Ten << endl;
         cout << "So tai khoan: " << accounts[x].SoTaiKhoan << endl;
-        cout << "So du:        " << accounts[x].SoDu << "VND" << endl;
+        cout << "So du       : " << accounts[x].SoDu << "VND" << endl;
     }
     else {
-        cout << "Fullname:       " << accounts[x].Ten << endl;
+        cout << "Fullname      : " << accounts[x].Ten << endl;
         cout << "Account number: " << accounts[x].SoTaiKhoan << endl;
-        cout << "Balance:        " << accounts[x].SoDu << "VND" << endl;
+        cout << "Balance       : " << accounts[x].SoDu << "VND" << endl;
     }
     pause_anykey();
     return;
@@ -374,7 +526,7 @@ void biendongnhantien(int point, string mgd, long long tien, int x) {
     out.close();
 }
 void naptien() {
-    cls();
+    header();
     long long tien;
     string mgd = magiaodich();
     if (lang == 1)
@@ -415,7 +567,7 @@ void naptien() {
     }
 }
 void ruttien() {
-    cls();
+    header();
     long long tien;
     string mgd = magiaodich();
     if (lang == 1)
@@ -463,7 +615,7 @@ void ruttien() {
 }
 void chuyen(int point) {
     long long tien;
-    cls();
+    header();
     string mgd = magiaodich();
     if (lang == 1) {
         cout << "Ten nguoi nhan: " << accounts[point].Ten << endl;
@@ -519,7 +671,7 @@ void chuyen(int point) {
 }
 void chuyentien() {
     string sotaikhoan;
-    cls();
+    header();
     if (lang == 1) {
         cout << "Ban dang thuc hien chuyen tien (nhan 0 de quay lai): \n";
         cout << "Nhap so tai khoan nguoi nhan: ";
@@ -556,7 +708,7 @@ void chuyentien() {
 void doimatkhau() {
     char k;
     string a, b, c;
-    cls();
+    header();
     if (lang == 1)
         cout << "Dang tien hanh doi mat khau (Nhan 1 de tiep tuc, 0 de quay lai): ";
     else cout << "Processing password change (Press 1 to    continue, 0 to go back): ";
@@ -613,7 +765,7 @@ void doimatkhau() {
     }
 }
 void biendongsodu() {
-    cls();
+    header();
     ifstream file(accounts[x].Ten + "_Balance_Fluctuations.txt");
     if (lang == 1)
         cout << "     Thoi Gian	   |     Ma GD     |     Loai     |     So tien      |       Doi tac        |  Trang thai  |     So du sau    |\n";
@@ -627,7 +779,7 @@ void biendongsodu() {
 }
 void menu() {
     while (true) {
-        cls();
+        header();
         if (lang == 1) {
             cout << "Xin chao " << accounts[x].Ten << "! Vui long chon: \n";
             cout << "   1. Tra cuu\n";
@@ -637,6 +789,7 @@ void menu() {
             cout << "   5. Doi mat khau\n";
             cout << "   6. Bien dong so du\n";
             cout << "   7. Change language (Vietnamese - English)\n";
+            cout << "   8. Doi giao dien\n";
             cout << "   0. Dang xuat\n";
             cout << "Vui long chon: ";
         }
@@ -649,6 +802,7 @@ void menu() {
             cout << "   5. Change password\n";
             cout << "   6. Balance fluctuations\n";
             cout << "   7. Doi ngon ngu (Tieng Viet - Tieng Anh)\n";
+            cout << "   8. Change theme\n";
             cout << "   0. Log out\n";
             cout << "Please select: ";
         }
@@ -689,6 +843,11 @@ void menu() {
         if (choose == '7') {
             if (lang == 1) lang = 2;
             else lang = 1;
+            menu();
+        }
+        else
+        if (choose == '8') {
+            doigiaodien();
             menu();
         }
         else {
