@@ -17,15 +17,15 @@ void delay(int ms) {Sleep(ms);}
 void cls() {system("cls");}
 void pause_anykey() {
     if (lang == 1)
-        cout << "Nhan phim bat ki de quay tro lai...";
-    else cout << "Press any key to return...";
+        cout << "Nhấn Phím Bất Kì Để Quay Lại...";
+    else cout << "Press Any Key To Return...";
     _getch();
 }
 void luachonsai() {
     cls();
     if (lang == 1)
-        cout << "Lua chon khong hop le, vui long chon lai!";
-    else cout << "Invalid choice, please select again!";
+        cout << "Lựa Chọn Không Hợp Lệ, Vui Lòng Chọn Lại!";
+    else cout << "Invalid Choice, Please Select Again!";
     delay(1000);
 }
 string chuanhoa(string s) {
@@ -68,9 +68,10 @@ void setcolor(int text, int background = 0) {
 void header() {
     cls();
     cout << "====================================\n";
-    cout << "          NHLongg Bank  \n";
+    cout << "            NHLongg Bank\n";
     cout << "====================================\n";
 }
+
 //======================TINH NANG=======================
 
 void doigiaodien() {
@@ -87,18 +88,20 @@ void doigiaodien() {
     int k;
     t:
     if (lang == 1) {
-        cout << "Doi giao dien (Nhan 0 de quay lai): \n";
-        cout << "   1. Giao dien sang\n";
-        cout << "   2. Giao dien toi\n";
-        cout << "   3. Giao dien tuy chinh\n";
-        cout << "Nhap lua chon: ";
+        cout << "Đổi Giao Diện : \n\n";
+        cout << "   1. Giao Diện Sáng\n";
+        cout << "   2. Giao Diện Tối\n";
+        cout << "   3. Giao Diện Tùy Chỉnh\n";
+        cout << "   0. Quay Lại\n\n";
+        cout << "------------------------------------\n";
+        cout << "Nhập Lựa Chọn: ";
     }
     else {
-        cout << "Change theme (Press 0 to return): \n";
+        cout << "Change Theme (Press 0 To Return): \n";
         cout << "   1. Light Theme\n";
         cout << "   2. Dark Theme\n";
         cout << "   3. Custom Theme\n";
-        cout << "Please select: ";
+        cout << "Please Select: ";
     }
     cin >> k;
     if ((k < 0) && (k > 3)) {
@@ -117,8 +120,8 @@ void doigiaodien() {
         setcolor(a, b);
         header();
         if (lang == 1)
-            cout << "Doi giao dien thanh cong!\n";
-        else cout << "Theme changed successfully!\n";
+            cout << "Đổi Giao Diện Thành Công!\n";
+        else cout << "Theme Changed Successfully!\n";
         return;
     }
     else
@@ -128,8 +131,8 @@ void doigiaodien() {
         setcolor(a, b);
         header();
         if (lang == 1)
-            cout << "Doi giao dien thanh cong!\n";
-        else cout << "Theme changed successfully!\n";
+            cout << "Đổi Giao Diện Thành Công!\n";
+        else cout << "Theme Changed Successfully!\n";
         return;
     }
     else
@@ -137,27 +140,28 @@ void doigiaodien() {
         p:
         header();
         if (lang == 1) {
-            cout << "Tuy chinh giao dien (Nhap 0 de quay tro lai):\n";
-            cout << "   1. Den\n";
-            cout << "   2. Xanh duong\n";
-            cout << "   3. Xanh la\n";
-            cout << "   4. Xanh ngoc\n";
-            cout << "   5. Do\n";
-            cout << "   6. Tim\n";
-            cout << "   7. Vang\n";
-            cout << "   8. Xam nhat\n";
-            cout << "   9. Xam\n";
-            cout << "   10. Xanh duong sang\n";
-            cout << "   11. Xanh la sang\n";
-            cout << "   12. Xanh ngoc sang\n";
-            cout << "   13. Do sang\n";
-            cout << "   14. Tim sang\n";
-            cout << "   15. Vang sang\n";
-            cout << "   16. Trang\n";
-            cout << "Chon mau chu (1 - 16): ";
+            cout << "Tùy Chỉnh Giao Diện:\n";
+            cout << "   1. Đen\n";
+            cout << "   2. Xanh Dương\n";
+            cout << "   3. Xanh Lá\n";
+            cout << "   4. Xanh Ngọc\n";
+            cout << "   5. Đỏ\n";
+            cout << "   6. Tím\n";
+            cout << "   7. Vàng\n";
+            cout << "   8. Xám Nhạt\n";
+            cout << "   9. Xám\n";
+            cout << "   10. Xanh Dương Sáng\n";
+            cout << "   11. Xanh Lá Sáng\n";
+            cout << "   12. Xanh Ngọc Sáng\n";
+            cout << "   13. Đỏ Sáng\n";
+            cout << "   14. Tím Sáng\n";
+            cout << "   15. Vàng Sáng\n";
+            cout << "   16. Trắng\n";
+            cout << "   0. Quay Lại\n";
+            cout << "Chọn Màu Chữ (1 - 16): ";
         }
         else {
-            cout << "Theme customization (Press 0 to return):\n";
+            cout << "Theme Customization:\n";
             cout << "   1. Black\n";
             cout << "   2. Blue\n";
             cout << "   3. Green\n";
@@ -174,7 +178,8 @@ void doigiaodien() {
             cout << "   14. Light Purple\n";
             cout << "   15. Light Yellow\n";
             cout << "   16. White\n";
-            cout << "Choose text color: (1 - 16): ";
+            cout << "   0. Return\n";
+            cout << "Choose Text Color: (1 - 16): ";
         }
         cin >> a;
         if (a == 0) {
@@ -186,8 +191,8 @@ void doigiaodien() {
             goto p;
         }
         if (lang == 1)
-            cout << "Chon mau nen (1 - 16): ";
-        else cout << "Choose background color (1 - 16): ";
+            cout << "Chọn Màu Nền (1 - 16): ";
+        else cout << "Choose Background Color (1 - 16): ";
         cin >> b;
         if (b > 16) {
             luachonsai();
@@ -195,16 +200,16 @@ void doigiaodien() {
         }
         if (a == b) {
             if (lang == 1)
-                cout << "Mau chu khong duoc trung voi mau nen!\n";
-            else cout << "Text color cannot be the same as the background color!\n";
+                cout << "Màu Chữ Không Được Trùng Với Màu Nền!\n";
+            else cout << "Text Color Cannot Be The Same As The Background Color!\n";
             pause_anykey();
             goto p;
         }
         setcolor(a - 1, b - 1);
         header();
         if (lang == 1)
-            cout << "Doi giao dien thanh cong!\n";
-        else cout << "Theme changed successfully!\n";
+            cout << "Đổi Giao Diện Thành Công!\n";
+        else cout << "Theme Changed Successfully!\n";
         return;
     }
 }
@@ -213,14 +218,14 @@ void dangnhap() {
     header();
     int dangnhapcheck = 0;
     if (lang == 1) {
-        cout << "Dien ten dang nhap va mat khau: \n";
-        cout << "   Ten dang nhap: ";
+        cout << "Điền Tên Đăng Nhập Và Mật Khẩu: \n";
+        cout << "   Tên Đăng Nhập: ";
         cin >> tendangnhap;
-        cout << "   Mat khau: ";
+        cout << "   Mật Khẩu: ";
         cin >> matkhau;
     }
     else {
-        cout << "Enter username and password: \n";
+        cout << "Enter User Name And Password: \n";
         cout << "   Username: ";
         cin >> tendangnhap;
         cout << "   Password: ";
@@ -234,15 +239,15 @@ void dangnhap() {
         }
     if (dangnhapcheck) {
         if (lang == 1)
-            cout << "Dang nhap thanh cong, dang tro ve menu!\n";
-        else cout << "Login successful, returning to menu!\n";
+            cout << "Đăng Nhập Thành Công, Đang Trở Về Menu!\n";
+        else cout << "Login Successful, Returning To Menu!\n";
         delay(1000);
         ec = 1;
     }
     else {
         if (lang == 1)
-            cout << "Thong tin khong hop le, vui long kiem tra lai!\n";
-        else cout << "Invalid information, please check again!\n";
+            cout << "Thông Tin Không Hợp Lệ, Vui Lòng Kiểm Tra Lại!\n";
+        else cout << "Invalid Information, Please Check Again!\n";
         delay(1000);
         dangnhap();
     }
@@ -252,11 +257,11 @@ void dangky() {
     string tendangnhap, matkhau, sotaikhoan, hoten;
     ofstream out("accounts_data.txt", ios::app);
     if (lang == 1) {
-        cout << "Ban dang thuc hien dang ky tai khoan, vui long nhap tai khoan va mat khau: " << endl;
-        cout << "   Ten dang nhap: ";
+        cout << "Bạn Đang Thực Hiện Đăng Ký Tài Khoản, Vui Lòng Nhập Tài Khoản Và Mật Khẩu: " << endl;
+        cout << "   Tên Đăng Nhập: ";
     }
     else {
-        cout << "You are registering an account, please enter username and password:\n";
+        cout << "You Are Registering An Account, Please Enter Username And Password:\n";
         cout << "   Username: ";
     }
     cin >> tendangnhap;
@@ -268,19 +273,19 @@ void dangky() {
         }
     if (!kt) {
         if (lang == 1)
-            cout << "Ten dang nhap da ton tai, vui long thu lai!" << endl;
-        else cout << "Username already exists, please try again!" << endl;
+            cout << "Tên Đăng Nhập Đã Tồn Tại, Vui Lòng Thử Lại!" << endl;
+        else cout << "Username Already Exists, Please Try Again!" << endl;
         delay(1000);
         dangky();
     }
     if (lang == 1) {
-        cout << "   Mat khau: ";
+        cout << "   Mật Khẩu: ";
         cin >> matkhau;
-        cout << "   Ho va ten: ";
+        cout << "   Họ Và Tên: ";
         cin.ignore();
         getline(cin, hoten);
         hoten = chuanhoa(hoten);
-        cout << "   So tai khoan: ";
+        cout << "   Số Tài Khoản: ";
         cin >> sotaikhoan;
     }
     else {
@@ -290,7 +295,7 @@ void dangky() {
         cin.ignore();
         getline(cin, hoten);
         hoten = chuanhoa(hoten);
-        cout << "   Account number: ";
+        cout << "   Account Number: ";
         cin >> sotaikhoan;
     }
     for (int i = 0; i < accounts.size(); ++i)
@@ -300,8 +305,8 @@ void dangky() {
         }
     if (!kt) {
         if (lang == 1)
-            cout << "So tai khoan da ton tai, vui long thu lai!" << endl;
-        else cout << "Account number already exists, please try again!" << endl;
+            cout << "Số Tài Khoản Đã Tồn Tại, Vui Lòng Thử Lại!" << endl;
+        else cout << "Account Number Already Exists, Please Try Again!" << endl;
         delay(1000);
         dangky();
     }
@@ -319,8 +324,8 @@ void dangky() {
         out.close();
         x = accounts.size() - 1;
         if (lang == 1)
-            cout << "Dang ky tai khoan thanh cong, dang dang nhap!";
-        else cout << "Account registration successful, logging in!";
+            cout << "Đăng Ký Tài Khoản Thành Công, Đang Đăng Nhập!";
+        else cout << "Account Registration Successful, Logging In!";
         delay(1000);
         ec = 1;
     }
@@ -328,29 +333,31 @@ void dangky() {
 void dangnhapdangky() {
     header();
     if (lang == 1) {
-        cout << "Vui long chon:\n";
-        cout << "   1. Dang nhap\n";
-        cout << "   2. Dang ky\n";
-        cout << "   3. Change language (Vietnamese - English)\n";
-        cout << "   4. Doi giao dien\n";
-        cout << "   0. Thoat\n";
-        cout << "Nhap lua chon: ";
+        cout << "Vui Lòng Chọn:\n\n";
+        cout << "   1. Đăng Nhập\n";
+        cout << "   2. Đăng Ký\n";
+        cout << "   3. Đổi Ngôn Ngữ (Vi-En)\n";
+        cout << "   4. Đổi giao diện\n";
+        cout << "   0. Quay Lai\n\n";
+        cout << "------------------------------------\n";
+        cout << "Nhập Lựa Chọn: ";
         cin >> choose;
     }
     else {
-        cout << "Please select:\n";
+        cout << "Please Select:\n\n";
         cout << "   1. Login\n";
         cout << "   2. Register\n";
-        cout << "   3. Doi ngon ngu (Tieng Viet - Tieng Anh)\n";
+        cout << "   3. Change Language (Vi-En)\n";
         cout << "   4. Custom Theme\n";
-        cout << "   0. Exit\n";
-        cout << "Enter your choice: ";
+        cout << "   0. Return\n\n";
+        cout << "------------------------------------\n";
+        cout << "Enter Your Choice: ";
         cin >> choose;
     }
     if (choose == '0') {
         if (lang == 1)
-            cout << "Xin chao va hen gap lai quy khach!\n\n";
-        else cout << "Thank you and see you again!\n\n";
+            cout << "Xin Chào Và Hẹn Gặp Lại Quý Khách!\n\n";
+        else cout << "Thank You And See You Again!\n\n";
         ec = -1;
         exit(0);
     }
@@ -383,94 +390,98 @@ void dangnhapdangky() {
 void tracuu() {
     header();
     if (lang == 1) {
-        cout << "Ho ten      : " << accounts[x].Ten << endl;
-        cout << "So tai khoan: " << accounts[x].SoTaiKhoan << endl;
-        cout << "So du       : " << accounts[x].SoDu << "VND" << endl;
+        cout << "Họ Tên      : " << accounts[x].Ten << endl;
+        cout << "Số Tài Khoản: " << accounts[x].SoTaiKhoan << endl;
+        cout << "Số Dư       : " << accounts[x].SoDu << "VND" << endl;
     }
     else {
         cout << "Fullname      : " << accounts[x].Ten << endl;
-        cout << "Account number: " << accounts[x].SoTaiKhoan << endl;
+        cout << "Account Number: " << accounts[x].SoTaiKhoan << endl;
         cout << "Balance       : " << accounts[x].SoDu << "VND" << endl;
     }
     pause_anykey();
     return;
 }
 void inhoadon(string s, int point, long long tien, string mgd) {
-    ofstream out("transaction_details.txt");
+    ofstream out("transaction_details.txt", ios::binary);
+    const unsigned char bom[] = {0xEF, 0xBB, 0xBF};
+    out.write((const char*)bom, 3);
     out << "===================NHLongg Bank===================\n";
     if (lang == 1)
-        out << "Cam on ban da su dung dich vu, chi tiet giao dich:\n";
-    else out << "Thank you for using our service, transaction details:\n";
+        out << "Cảm Ơn Bạn Đã Sử Dụng Dịch Vụ, Chi Tiết Giao Dịch:" << endl;
+    else out << "Thank You For Using Our Service, Transaction Details:\n\n";
     out << endl;
     if (s == "naptien") {
         if (lang == 1) {
-            out << "Thoi gian giao dich:   " << realtime() << endl;
-            out << "Ma giao dich       :   " << mgd << endl;
-            out << "Loai giao dich     :   Nap tien truc tuyen" << endl;
-            out << "Tai khoan thuc hien:   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
-            out << "So tien giao dich  :   " << tien << endl;
-            out << "Tinh trang         :   Giao dich thanh cong \n";
+            out << "Thời Gian Giao Dịch:   " << realtime() << endl;
+            out << "Mã Giao Dịch       :   " << mgd << endl;
+            out << "Loại Giao Dịch     :   Nạp Tiền Trực Tuyến" << endl;
+            out << "Tài Khoản Thực Hiện:   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
+            out << "Số Tiền Giao Dịch  :   " << tien << endl;
+            out << "Tình Trạng         :   Giao Dịch Thành Công \n\n";
         }
         else {
-            out << "Transaction time  :   " << realtime() << endl;
+            out << "Transaction Time  :   " << realtime() << endl;
             out << "Transaction ID    :   " << mgd << endl;
-            out << "Transaction type  :   Online deposit" << endl;
-            out << "From account      :   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
-            out << "Transaction amount:   " << tien << endl;
-            out << "Status            :   Transaction successful \n";
+            out << "Transaction Type  :   Online Deposit" << endl;
+            out << "From Account      :   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
+            out << "Transaction Amount:   " << tien << endl;
+            out << "Status            :   Transaction Successful \n\n";
         }
     }
     else
     if (s == "ruttien") {
         if (lang == 1) {
-            out << "Thoi gian giao dich:   " << realtime() << endl;
-            out << "Ma giao dich       :   " << mgd << endl;
-            out << "Loai giao dich     :   Rut tien truc tuyen" << endl;
-            out << "Tai khoan thuc hien:   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
-            out << "So tien giao dich  :   " << tien << endl;
-            out << "Tinh trang         :   Giao dich thanh cong \n";
+            out << "Thời Gian Giao Dịch:   " << realtime() << endl;
+            out << "Mã Giao Dịch       :   " << mgd << endl;
+            out << "Loại Giao Dịch     :   Rút Tiền Trực Tuyến" << endl;
+            out << "Tài Khoản Thực Hiện:   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
+            out << "Số Tiền Giao Dịch  :   " << tien << endl;
+            out << "Tình Trạng         :   Giao Dịch Thành Công \n\n";
         }
         else {
-            out << "Transaction time  :   " << realtime() << endl;
+            out << "Transaction Time  :   " << realtime() << endl;
             out << "Transaction ID    :   " << mgd << endl;
-            out << "Transaction type  :   Online withdrawal" << endl;
-            out << "From account      :   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
-            out << "Transaction amount:   " << tien << endl;
-            out << "Status            :   Transaction successful \n";
+            out << "Transaction Type  :   Online Withdrawal" << endl;
+            out << "From Account      :   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
+            out << "Transaction Amount:   " << tien << endl;
+            out << "Status            :   Transaction Successful \n\n";
         }
     }
     if (s == "chuyentien") {
         if (lang == 1) {
-            out << "Thoi gian giao dich:   " << realtime() << endl;
-            out << "Ma giao dich       :   " << mgd << endl;
-            out << "Loai giao dich     :   Chuyen tien truc tuyen" << endl;
-            out << "Tai khoan thuc hien:   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
+            out << "Thời Gian Giao Dịch:   " << realtime() << endl;
+            out << "Mã Giao Dịch       :   " << mgd << endl;
+            out << "Loại Giao Dịch     :   Chuyển Tiền Trực Tuyến" << endl;
+            out << "Tài Khoản Thực Hiện:   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
             out << "Tai khoan thu huong:   " << accounts[point].Ten << " - " << accounts[point].SoTaiKhoan << endl;
-            out << "So tien giao dich  :   " << tien << endl;
-            out << "Tinh trang         :   Giao dich thanh cong \n";
+            out << "Số Tiền Giao Dịch  :   " << tien << endl;
+            out << "Tình Trạng         :   Giao Dịch Thành Công \n\n";
         }
         else {
-            out << "Transaction time  :   " << realtime() << endl;
+            out << "Transaction Time  :   " << realtime() << endl;
             out << "Transaction ID    :   " << mgd << endl;
-            out << "Transaction type  :   Online transfer" << endl;
-            out << "From account      :   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
-            out << "Receiving account :   " << accounts[point].Ten << " - " << accounts[point].SoTaiKhoan << endl;
-            out << "Transaction amount:   " << tien << endl;
-            out << "Status            :   Transaction successful \n";
+            out << "Transaction Type  :   Online Transfer" << endl;
+            out << "From Account      :   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
+            out << "Receiving Account :   " << accounts[point].Ten << " - " << accounts[point].SoTaiKhoan << endl;
+            out << "Transaction Amount:   " << tien << endl;
+            out << "Status            :   Transaction Successful \n\n";
         }
     }
     out << "==================================================\n";
     if (lang == 1)
-        out << "Xin chan thanh cam on!";
-    else out << "Sincerely thank you!";
+        out << "Xin Chân Thành Cảm Ơn!";
+    else out << "Sincerely Thank You!";
     out.close();
 }
 void biendong(int point, string mgd, string type, long long tien) {
     ofstream out(accounts[x].Ten + "_Balance_Fluctuations.txt", ios::app);
+    const unsigned char bom[] = {0xEF, 0xBB, 0xBF};
+    out.write((const char*)bom, 3);
     out << realtime() << "|" << mgd << "|";
     if (type == "naptien") {
         if (lang == 1)
-            out << "Nap tien      |+" << tien << " VND";
+            out << "Nạp Tiền      |+" << tien << " VND";
         else out << "Deposit       |+" << tien << " VND";
         string c = to_string(tien);
         for (int i = 17; i >= c.size() + 5; --i) out << " ";
@@ -482,7 +493,7 @@ void biendong(int point, string mgd, string type, long long tien) {
     else
     if (type == "ruttien") {
         if (lang == 1)
-            out << "Rut tien      |-" << tien << " VND";
+            out << "Rút Tiền      |-" << tien << " VND";
         else out << "Withdrawal    |-" << tien << " VND";
         string c = to_string(tien);
         for (int i = 17; i >= c.size() + 5; --i) out << " ";
@@ -494,7 +505,7 @@ void biendong(int point, string mgd, string type, long long tien) {
     else
     if (type == "chuyentien") {
         if (lang == 1)
-            out << "Chuyen tien   |-" << tien << " VND";
+            out << "Chuyển Tiền   |-" << tien << " VND";
         else out << "Transfer      |-" << tien << " VND";
         string c = to_string(tien);
         for (int i = 17; i >= c.size() + 5; --i) out << " ";
@@ -510,9 +521,11 @@ void biendong(int point, string mgd, string type, long long tien) {
 }
 void biendongnhantien(int point, string mgd, long long tien, int x) {
     ofstream out(accounts[point].Ten + "_Balance_Fluctuations.txt", ios::app);
+    const unsigned char bom[] = {0xEF, 0xBB, 0xBF};
+    out.write((const char*)bom, 3);
     out << realtime() << "|" << mgd << "|";
     if (lang == 1)
-        out << "Nhan tien     |+" << tien << " VND";
+        out << "Nhận Tiền     |+" << tien << " VND";
     else out << "Incoming      |+" << tien << " VND";
     string c = to_string(tien);
     for (int i = 17; i >= c.size() + 5; --i) out << " ";
@@ -530,15 +543,15 @@ void naptien() {
     long long tien;
     string mgd = magiaodich();
     if (lang == 1)
-        cout << "Nhap so tien muon nap (Nhap 0 de quay tro lai): ";
-    else cout << "Enter the amount you want to deposit (Enter 0 to return): ";
+        cout << "Nhập Số Tiền Muốn Nạp (Nhập 0 Để Quay Trở Lại): ";
+    else cout << "Enter The Amount You Want To Deposit (Enter 0 To Return): ";
     cin >> tien;
     if (tien == 0) return;
     else
     if (tien < 1000) {
         if (lang == 1)
-            cout << "So tien phai lon hon 1000!\n";
-        else cout << "The amount must be greater than 1000!\n";
+            cout << "Số Tiền Phải Lớn Hơn 1000!\n";
+        else cout << "The amount Must Be Greater Than 1000!\n";
         delay(1000);
         naptien();
     }
@@ -547,18 +560,18 @@ void naptien() {
         changefile();
         cls();
         if (lang == 1) {
-            cout << "Nap tien thanh cong!" << endl;
-            cout << "Ma giao dich: " << mgd << endl;
-            cout << "So tien da nap: " << tien << "VND" << endl;
-            cout << "So du hien tai: " << accounts[x].SoDu << "VND" << endl;
-            cout << "Chi tiet giao dich da duoc tao thanh cong!" << endl;
+            cout << "Nạp Tiền Thành Công!" << endl;
+            cout << "Mã Giao Dịch: " << mgd << endl;
+            cout << "Số Tiền Đã Nạp: " << tien << "VND" << endl;
+            cout << "Số Dư Hiện Tại: " << accounts[x].SoDu << "VND" << endl;
+            cout << "Chi Tiết Giao Dịch Đã Được Tạo Thành Công!" << endl;
         }
         else {
-            cout << "Deposit successful!" << endl;
+            cout << "Deposit Successful!" << endl;
             cout << "Transaction ID: " << mgd << endl;
-            cout << "Deposited amount: " << tien << "VND" << endl;
-            cout << "Current balance: " << accounts[x].SoDu << "VND" << endl;
-            cout << "Transaction details have been successfully created!" << endl;
+            cout << "Deposited Amount: " << tien << "VND" << endl;
+            cout << "Current Balance: " << accounts[x].SoDu << "VND" << endl;
+            cout << "Transaction Details Have Been Successfully Created!" << endl;
         }
         inhoadon("naptien", 0, tien, mgd);
         biendong(0, mgd, "naptien", tien);
@@ -571,23 +584,23 @@ void ruttien() {
     long long tien;
     string mgd = magiaodich();
     if (lang == 1)
-        cout << "Nhap so tien muon rut (Nhap 0 de quay tro lai): ";
-    else cout << "Enter the amount you want to withdraw (Enter 0 to return): ";
+        cout << "Nhập Số Tiền Muốn Rút (Nhập 0 Để Quay Trở Lại)): ";
+    else cout << "Enter The Amount You Want To Withdraw (Enter 0 To Return): ";
     cin >> tien;
     if (tien == 0) return;
     else
     if (tien < 1000) {
         if (lang == 1)
-            cout << "So tien phai lon hon 1000!\n";
-        else cout << "The amount must be greater than 1000!\n";
+            cout << "Số Tiền Phải Lớn Hơn 1000!\n";
+        else cout << "The amount Must Be Greater Than 1000!\n";
         delay(1000);
         ruttien();
     }
     else
     if (tien > accounts[x].SoDu) {
         if (lang == 1)
-            cout << "So du khong du, vui long nhap lai!" << endl;
-        else cout << "Insufficient balance, please re-enter!" << endl;
+            cout << "Số Dư Không Đủ, Vui Long Nhap lai!" << endl;
+        else cout << "Insufficient Balance, Please Re-Enter!" << endl;
         delay(1000);
         ruttien();
     }
@@ -596,16 +609,16 @@ void ruttien() {
         changefile();
         cls();
         if (lang == 1) {
-            cout << "Rut tien thanh cong!" << endl;
-            cout << "Ma giao dich: " << mgd << endl;
-            cout << "So du hien tai: " << accounts[x].SoDu << endl;
-            cout << "Chi tiet giao dich da duoc tao thanh cong!" << endl;
+            cout << "Rút Tiền Thành Công!" << endl;
+            cout << "Mã Giao Dịch: " << mgd << endl;
+            cout << "Số Dư Hiện Tại: " << accounts[x].SoDu << endl;
+            cout << "Chi Tiết Giao Dịch Đã Được Tạo Thành CÔng!" << endl;
         }
         else {
-            cout << "Withdraw successful!" << endl;
+            cout << "Withdraw Successful!" << endl;
             cout << "Transaction ID: " << mgd << endl;
-            cout << "Current balance: " << accounts[x].SoDu << endl;
-            cout << "Transaction details have been successfully created!" << endl;
+            cout << "Current Balance: " << accounts[x].SoDu << endl;
+            cout << "Transaction Details Have Been Successfully Created!" << endl;
         }
         inhoadon("ruttien", 0, tien, mgd);
         biendong(0, mgd, "ruttien", tien);
@@ -618,28 +631,28 @@ void chuyen(int point) {
     header();
     string mgd = magiaodich();
     if (lang == 1) {
-        cout << "Ten nguoi nhan: " << accounts[point].Ten << endl;
-        cout << "Nhap so tien muon chuyen (Nhan 0 de quay tro ve menu): ";
+        cout << "Tên Người Nhận: " << accounts[point].Ten << endl;
+        cout << "Nhập Số Tiền Muốn Chuyển (Nhấn 0 Để Quay Trở Về Menu): ";
     }
     else {
-        cout << "Recipient name: " << accounts[point].Ten << endl;
-        cout << "Enter the amount you want to transfer (Enter 0 to return to menu): ";
+        cout << "Recipient Name: " << accounts[point].Ten << endl;
+        cout << "Enter The Amount You Want To Transfer (Enter 0 To Return To Menu): ";
     }
     cin >> tien;
     if (tien == 0) return;
     else
     if (tien < 1000) {
         if (lang == 1)
-            cout << "So tien da nhap phai lon hon 1000!";
-        else cout << "The entered amount must be greater than 1000!";
+            cout << "Số Tiền Phải Lớn Hơn 1000!\n";
+        else cout << "The amount Must Be Greater Than 1000!\n";
         delay(1000);
         chuyen(-1);
     }
     else
     if (tien > accounts[x].SoDu) {
         if (lang == 1)
-            cout << "So du khong du!";
-        else cout << "Insufficient balance!";
+            cout << "Số Dư Không Đủ!";
+        else cout << "Insufficient Balance!";
         delay(1000);
         chuyen(-1);
     }
@@ -649,18 +662,18 @@ void chuyen(int point) {
         changefile();
         cls();
         if (lang == 1) {
-            cout << "Giao dich thanh cong!\n";
-            cout << "Da chuyen thanh cong " << tien << "VND toi " << accounts[point].Ten << endl;
-            cout << "Ma giao dich: " << mgd << endl;
-            cout << "So du con lai: " << accounts[x].SoDu << endl;
-            cout << "Chi tiet giao dich da duoc tao thanh cong!" << endl;
+            cout << "Giao Dịch Thành Công!\n";
+            cout << "Đã Chuyển Thành Công " << tien << "VND tới " << accounts[point].Ten << endl;
+            cout << "Mã Giao Dịch: " << mgd << endl;
+            cout << "Số Dư Còn Lại: " << accounts[x].SoDu << endl;
+            cout << "Chi Tiết Giao Dịch Đã Được Tạo Thành Công!" << endl;
         }
         else {
             cout << "Transaction successful!\n";
-            cout << "Successfully transferred " << tien << "VND to " << accounts[point].Ten << endl;
+            cout << "Successfully Transferred " << tien << "VND To " << accounts[point].Ten << endl;
             cout << "Transaction ID: " << mgd << endl;
-            cout << "Remaining balance: " << accounts[x].SoDu << endl;
-            cout << "Transaction details have been successfully created!" << endl;
+            cout << "Remaining Balance: " << accounts[x].SoDu << endl;
+            cout << "Transaction Details Have Been Successfully C8reated!" << endl;
         }
         inhoadon("chuyentien", point, tien, mgd);
         biendong(point, mgd, "chuyentien", tien);
@@ -860,6 +873,8 @@ void menu() {
 //===================CHUONG TRINH=====================
 
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
     ifstream file("accounts_data.txt");
     srand(time(0));
     string line;
