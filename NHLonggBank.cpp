@@ -11,17 +11,19 @@ class Account {
         string MatKhau;
         string Ten;
         string SoTaiKhoan;
+        int PIN;
         long long SoDu;
-        Account (string s = "", string a = "", string b = "", string c = "", long long d = 0) {
+        Account (string s = "", string a = "", string b = "", string c = "", int e = 0, long long d = 0) {
             TenDangNhap = s;
             MatKhau = a;
             Ten = b;
             SoTaiKhoan = c;
+            PIN = e;
             SoDu = d;
         }
 };
 
-int ec = 0, x, point, lang = 1;
+int ec = 0, x, point, lang = 1, pinec = 1;
 char choose;
 string theme = "dark";
 vector<Account> accounts;
@@ -30,6 +32,13 @@ vector<Account> accounts;
 
 void header();
 void delay(int ms) {Sleep(ms);}
+void dangxacthuc() {
+    header();
+    if (lang == 1)
+        cout << "Đang Xác Thực...";
+    else cout << "Verifying...";
+    delay(500);
+}
 void pause_anykey() {
     cout << endl;
     cout << "--------------------------------------------\n";
@@ -78,7 +87,7 @@ string realtime() {
 void changefile() {
     ofstream out("Accounts_Data.txt");
     for (int i = 0; i < accounts.size(); ++i)
-        out << accounts[i].TenDangNhap << '|' << accounts[i].MatKhau << '|' << accounts[i].Ten << '|' << accounts[i].SoTaiKhoan << '|' << accounts[i].SoDu << '|' << "\n";
+        out << accounts[i].TenDangNhap << '|' << accounts[i].MatKhau << '|' << accounts[i].Ten << '|' << accounts[i].SoTaiKhoan << '|' << accounts[i].PIN << '|' << accounts[i].SoDu << '|' << "\n";
     out.close();
 }
 string magiaodich() {
@@ -98,6 +107,18 @@ void header() {
     cout << "<>========================================<>\n";
     cout << "||              NHLongg Bank              ||\n";
     cout << "<>========================================<>\n";
+}
+void xacnhanpin() {
+    pinec = 1;
+    int s;
+    cout << "Nhập Mã PIN Để Xác Nhận: ";
+    cin >> s;
+    if (s == accounts[x].PIN) pinec = 1;
+    else {
+        cout << "Mã Pin Không Đúng, Vui Lòng Nhập Lại!\n";
+        pinec = 0;
+        delay(1000);
+    }
 }
 void doigiaodien();
 void dangnhap();
@@ -312,6 +333,7 @@ void dangnhap() {
 void dangky() {
     header();
     string tendangnhap, matkhau, sotaikhoan, hoten;
+    int pin;
     ofstream out("Accounts_Data.txt", ios::app);
     if (lang == 1) {
         cout << "Bạn Đang Thực Hiện Đăng Ký Tài Khoản, Vui Lòng Nhập Tài Khoản Và Mật Khẩu (Nhập 0 Để Quay Lại): " << endl;
@@ -372,6 +394,17 @@ void dangky() {
         delay(1000);
         dangky();
     }
+    p:
+    if (lang == 1)
+        cout << "   Mã Pin 6 Kí Tự: ";
+    else cout << "   6-Digits PIN Code: ";
+    cin >> pin;
+    if ((pin < 100000) || (pin > 999999)) {
+        if (lang == 1)
+            cout << "Mã PIN Không Hợp Lệ, Vui Lòng Nhập Lại!\n";
+        else cout << "PIN Code Invalid, Please Try Again!\n";
+        goto p;
+    }
     if (kt) {
         string s = "";
         Account newacc;
@@ -379,8 +412,9 @@ void dangky() {
         newacc.MatKhau = matkhau;
         newacc.Ten = hoten;
         newacc.SoTaiKhoan = sotaikhoan;
+        newacc.PIN = pin;
         newacc.SoDu = 0;
-        s = s + tendangnhap + '|' + matkhau + '|' + hoten + '|' + sotaikhoan + "|0|";
+        s = s + tendangnhap + '|' + matkhau + '|' + hoten + '|' + sotaikhoan + '|' + to_string(pin) + "|0|";
         accounts.push_back(newacc);
         out << s << "\n";
         out.close();
@@ -618,27 +652,35 @@ void naptien() {
         naptien();
     }
     else {
-        accounts[x].SoDu += tien;
-        changefile();
-        header();
-        if (lang == 1) {
-            cout << "Nạp Tiền Thành Công!" << endl;
-            cout << "Mã Giao Dịch  : " << mgd << endl;
-            cout << "Số Tiền Đã Nạp: " << chuanhoatien(tien) << " VND" << endl;
-            cout << "Số Dư Hiện Tại: " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
-            cout << "Chi Tiết Giao Dịch Đã Được Tạo Thành Công!" << endl;
+        p:
+        xacnhanpin();
+        if (pinec == 1) {
+            accounts[x].SoDu += tien;
+            changefile();
+            dangxacthuc();
+            header();
+            if (lang == 1) {
+                cout << "Nạp Tiền Thành Công!\n" << endl;
+                cout << "Mã Giao Dịch  : " << mgd << endl;
+                cout << "Số Tiền Đã Nạp: " << chuanhoatien(tien) << " VND" << endl;
+                cout << "Số Dư Hiện Tại: " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
+                cout << "Chi Tiết Giao Dịch Đã Được Tạo Thành Công!" << endl;
+            }
+            else {
+                cout << "Deposit Successful!" << endl;
+                cout << "Transaction ID  : " << mgd << endl;
+                cout << "Deposited Amount: " << chuanhoatien(tien) << " VND" << endl;
+                cout << "Current Balance : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
+                cout << "Transaction Details Have Been Successfully Created!" << endl;
+            }
+            inhoadon("naptien", 0, tien, mgd);
+            biendong(0, mgd, "naptien", tien);
+            pause_anykey();
+            return;
         }
         else {
-            cout << "Deposit Successful!" << endl;
-            cout << "Transaction ID  : " << mgd << endl;
-            cout << "Deposited Amount: " << chuanhoatien(tien) << " VND" << endl;
-            cout << "Current Balance : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
-            cout << "Transaction Details Have Been Successfully Created!" << endl;
+            goto p;
         }
-        inhoadon("naptien", 0, tien, mgd);
-        biendong(0, mgd, "naptien", tien);
-        pause_anykey();
-        return;
     }
 }
 void ruttien() {
@@ -667,27 +709,35 @@ void ruttien() {
         ruttien();
     }
     else {
-        accounts[x].SoDu -= tien;
-        changefile();
-        header();
-        if (lang == 1) {
-            cout << "Rút Tiền Thành Công!" << endl;
-            cout << "Mã Giao Dịch  : " << mgd << endl;
-            cout << "Số Tiền Đã Rút: " << chuanhoatien(tien) << " VND" << endl;
-            cout << "Số Dư Hiện Tại: " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
-            cout << "Chi Tiết Giao Dịch Đã Được Tạo Thành CÔng!" << endl;
+        p:
+        xacnhanpin();
+        if (pinec == 1) {
+            accounts[x].SoDu -= tien;
+            changefile();
+            dangxacthuc();
+            header();
+            if (lang == 1) {
+                cout << "Rút Tiền Thành Công!\n" << endl;
+                cout << "Mã Giao Dịch  : " << mgd << endl;
+                cout << "Số Tiền Đã Rút: " << chuanhoatien(tien) << " VND" << endl;
+                cout << "Số Dư Hiện Tại: " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
+                cout << "Chi Tiết Giao Dịch Đã Được Tạo Thành Công!" << endl;
+            }
+            else {
+                cout << "Withdraw Successful!\n" << endl;
+                cout << "Transaction ID   : " << mgd << endl;
+                cout << "Withdrawal Amount: " << chuanhoatien(tien) << " VND" << endl;
+                cout << "Current Balance  : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
+                cout << "Transaction Details Have Been Successfully Created!" << endl;
+            }
+            inhoadon("ruttien", 0, tien, mgd);
+            biendong(0, mgd, "ruttien", tien);
+            pause_anykey();
+            return;
         }
         else {
-            cout << "Withdraw Successful!" << endl;
-            cout << "Transaction ID   : " << mgd << endl;
-            cout << "Withdrawal Amount: " << chuanhoatien(tien) << " VND" << endl;
-            cout << "Current Balance  : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
-            cout << "Transaction Details Have Been Successfully Created!" << endl;
+            goto p;
         }
-        inhoadon("ruttien", 0, tien, mgd);
-        biendong(0, mgd, "ruttien", tien);
-        pause_anykey();
-        return;
     }
 }
 void chuyen(int point) {
@@ -721,31 +771,39 @@ void chuyen(int point) {
         chuyen(point);
     }
     else {
-        accounts[x].SoDu -= tien;
-        accounts[point].SoDu += tien;
-        changefile();
-        header();
-        if (lang == 1) {
-            cout << "Giao Dịch Thành Công!\n";
-            cout << "Mã Giao Dịch  : " << mgd << endl;
-            cout << "Người nhận    : " << accounts[point].Ten << endl;
-            cout << "Số Tiền Chuyển: " << chuanhoatien(tien) << " VND" << endl;
-            cout << "Số Dư Còn Lại : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
-            cout << "Chi Tiết Giao Dịch Đã Được Tạo Thành Công!" << endl;
+        p:
+        xacnhanpin();
+        if (pinec == 1) {
+            accounts[x].SoDu -= tien;
+            accounts[point].SoDu += tien;
+            changefile();
+            dangxacthuc();
+            header();
+            if (lang == 1) {
+                cout << "Giao Dịch Thành Công!\n\n";
+                cout << "Mã Giao Dịch  : " << mgd << endl;
+                cout << "Người nhận    : " << accounts[point].Ten << endl;
+                cout << "Số Tiền Chuyển: " << chuanhoatien(tien) << " VND" << endl;
+                cout << "Số Dư Còn Lại : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
+                cout << "Chi Tiết Giao Dịch Đã Được Tạo Thành Công!" << endl;
+            }
+            else {
+                cout << "Transaction successful!\n\n";
+                cout << "Transaction ID    : " << mgd << endl;
+                cout << "Recipient Name    : " << accounts[point].Ten << endl;
+                cout << "Transferred Amount: " << chuanhoatien(tien) << " VND" << endl;
+                cout << "Remaining Balance : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
+                cout << "Transaction Details Have Been Successfully C8reated!" << endl;
+            }
+            inhoadon("chuyentien", point, tien, mgd);
+            biendong(point, mgd, "chuyentien", tien);
+            biendongnhantien(point, mgd, tien, x);
+            pause_anykey();
+            return;
         }
         else {
-            cout << "Transaction successful!\n";
-            cout << "Transaction ID    : " << mgd << endl;
-            cout << "Recipient Name    : " << accounts[point].Ten << endl;
-            cout << "Transferred Amount: " << chuanhoatien(tien) << " VND" << endl;
-            cout << "Remaining Balance : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
-            cout << "Transaction Details Have Been Successfully C8reated!" << endl;
+            goto p;
         }
-        inhoadon("chuyentien", point, tien, mgd);
-        biendong(point, mgd, "chuyentien", tien);
-        biendongnhantien(point, mgd, tien, x);
-        pause_anykey();
-        return;
     }
 }
 void chuyentien() {
@@ -843,6 +901,65 @@ void doimatkhau() {
         doimatkhau();
     }
 }
+void doipin() {
+    char k;
+    int a, b, c;
+    header();
+    if (lang == 1)
+        cout << "Đang Tiến Hành Đổi Mã PIN (Nhập 1 Để Tiếp Tục, 0 Để Quay Lại): ";
+    else cout << "Processing PIN Code Change (Enter 1 To Continue, 0 To Go Back): ";
+    cin >> k;
+    if (k == '0') menu();
+    else
+    if (k == '1') {
+        p:
+        header();
+        if (lang == 1)
+            cout << "Nhập Mã PIN Hiện Tại: ";
+        else cout << "Enter Current PIN Code: ";
+        cin >> a;
+        if (a != accounts[x].PIN) {
+            if (lang == 1)
+                cout << "Mã PIN Đã Nhập Không Đúng, Vui Lòng Thử Lại!";
+            else cout << "The PIN Code Entered Is incorrect, Please Try Again!";
+            delay(1000);
+            goto p;
+        }
+        pp:
+        header();
+        if (lang == 1) {
+            cout << "Nhập Mã PIN Mới: ";
+            cin >> b;
+            cout << "Nhập Lại Mã PIN Mới: ";
+            cin >> c;
+        }
+        else {
+            cout << "Enter New PIN Code: ";
+            cin >> b;
+            cout << "Re-Enter New PIN Code: ";
+            cin >> c;
+        }
+        if (c != b) {
+            if (lang == 1)
+                cout << "Mã PIN Đã Nhập Không Trùng Khớp, Vui Lòng Thử Lại!";
+            else cout << "The PIN Codes Entered Do Not Match, Please Try Again!";
+            delay(1000);
+            goto pp;
+        }
+        else {
+            accounts[x].PIN = c;
+            changefile();
+            if (lang == 1)
+                cout << "Thay Đổi Mã PIN Thành Công!\n";
+            else cout << "PIN Code Changed Successfully!\n";
+            pause_anykey();
+        }
+    }
+    else {
+        luachonsai();
+        doipin();
+    }
+}
 void biendongsodu() {
     ifstream file(accounts[x].Ten + "_Balance_Fluctuations.txt");
     header();
@@ -870,6 +987,7 @@ void menu() {
             cout << "   6. Biến Động Số Dư\n";
             cout << "   7. Đổi Ngôn Ngữ (Vi/En)\n";
             cout << "   8. Đổi Giao Diện\n";
+            cout << "   9. Đổi Mã PIN\n";
             cout << "   0. Đăng Xuất\n\n";
             cout << "--------------------------------------------\n";
             cout << "Vui Lòng Chọn: ";
@@ -884,6 +1002,7 @@ void menu() {
             cout << "   6. Balance Fluctuations\n";
             cout << "   7. Change Language (Vi/En)\n";
             cout << "   8. Change Theme\n";
+            cout << "   9. Change PIN Code\n";
             cout << "   0. Log Out\n\n";
             cout << "--------------------------------------------\n";
             cout << "Please Select: ";
@@ -932,6 +1051,10 @@ void menu() {
             doigiaodien();
             menu();
         }
+        else
+        if (choose == '9') {
+            doipin();
+        }
         else {
             luachonsai();
             menu();
@@ -954,13 +1077,14 @@ int main() {
         vector<string> TaiKhoan;
         while (getline(s, c, '|'))
             if (!c.empty()) TaiKhoan.push_back(c);
-        if (TaiKhoan.size() == 5) {
+        if (TaiKhoan.size() == 6) {
             Account acc;
             acc.TenDangNhap = TaiKhoan[0];
             acc.MatKhau = TaiKhoan[1];
             acc.Ten = TaiKhoan[2];
             acc.SoTaiKhoan = TaiKhoan[3];
-            acc.SoDu = stoll(TaiKhoan[4]);
+            acc.PIN = stoll(TaiKhoan[4]);
+            acc.SoDu = stoll(TaiKhoan[5]);
             accounts.push_back(acc);
         }
     }
