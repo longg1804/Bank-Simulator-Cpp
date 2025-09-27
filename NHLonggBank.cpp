@@ -3,7 +3,7 @@
 #include <conio.h>
 using namespace std;
 
-//=====================KHAI BAO========================
+//=====================KHAI BÁO========================
 
 class Account {
     public:
@@ -26,11 +26,10 @@ char choose;
 string theme = "dark";
 vector<Account> accounts;
 
-//=====================TIEN ICH========================
+//=====================TIỆN ÍCH========================
 
 void header();
 void delay(int ms) {Sleep(ms);}
-void cls() {system("cls");}
 void pause_anykey() {
     cout << endl;
     cout << "--------------------------------------------\n";
@@ -95,7 +94,7 @@ void setcolor(int text, int background = 0) {
     SetConsoleTextAttribute(h, (background << 4) | text);
 }
 void header() {
-    cls();
+    system("cls");
     cout << "<>========================================<>\n";
     cout << "||              NHLongg Bank              ||\n";
     cout << "<>========================================<>\n";
@@ -116,7 +115,7 @@ void doimatkhau();
 void biendongsodu();
 void menu();
 
-//======================TINH NANG=======================
+//======================TÍNH NĂNG=======================
 
 void doigiaodien() {
     int a, b;
@@ -433,7 +432,6 @@ void dangnhapdangky() {
     }
     else
     if (choose == '2') {
-        cls();
         dangky();
     }
     else
@@ -941,7 +939,7 @@ void menu() {
     }
 }
 
-//===================CHUONG TRINH=====================
+//===================CHƯƠNG TRÌNH=====================
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);

@@ -5,6 +5,7 @@
 **Change Logs:** <br>
 | Date      | Changes |
 |-----------|---------|
+|28/09/2025 | - Remove unnecessary void functions.<br> - Rewrite the code. |
 |27/09/2025 | - Update _NHLonggBank.cpp_ file.<br> - Detected and fixed some bugs. <br> - Improved some few features. | 
 
 **How To Use:**
