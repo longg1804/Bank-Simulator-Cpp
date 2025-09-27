@@ -1,5 +1,6 @@
 **Change Logs:**
-    **27/09/2025:** 
+
+    **27/09/2025:**
     - Update _NHLonggBank.cpp_ file.
     - Detected and fixed some bugs, and improved a few features.
 
