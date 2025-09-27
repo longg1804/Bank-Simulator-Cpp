@@ -56,6 +56,17 @@ string chuanhoa(string s) {
         if (s[i - 1] == ' ') s[i] = toupper(s[i]);
     return s;
 }
+string chuanhoatien (long long n) {
+    string s = "";
+    int t = 0;
+    while (n) {
+        s = char((n % 10) + '0') + s;
+        n /= 10;
+        ++t;
+        if (t % 3 == 0) s = '.' + s;
+    }
+    return s;
+}
 string realtime() {
     auto now = chrono::system_clock::now();
     time_t t = chrono::system_clock::to_time_t(now);
@@ -448,13 +459,13 @@ void tracuu() {
         cout << "Thông Tin Tài Khoản:\n\n";
         cout << "Họ Tên      : " << accounts[x].Ten << endl;
         cout << "Số Tài Khoản: " << accounts[x].SoTaiKhoan << endl;
-        cout << "Số Dư       : " << accounts[x].SoDu << " VND" << endl;
+        cout << "Số Dư       : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
     }
     else {
         cout << "Account Info: \n\n";
         cout << "Fullname      : " << accounts[x].Ten << endl;
         cout << "Account Number: " << accounts[x].SoTaiKhoan << endl;
-        cout << "Balance       : " << accounts[x].SoDu << " VND" << endl;
+        cout << "Balance       : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
     }
     pause_anykey();
     return;
@@ -474,7 +485,7 @@ void inhoadon(string s, int point, long long tien, string mgd) {
             out << "Mã Giao Dịch       :   " << mgd << endl;
             out << "Loại Giao Dịch     :   Nạp Tiền Trực Tuyến" << endl;
             out << "Tài Khoản Thực Hiện:   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
-            out << "Số Tiền Giao Dịch  :   " << tien << " VND" << endl;
+            out << "Số Tiền Giao Dịch  :   " << chuanhoatien(tien) << " VND" << endl;
             out << "Tình Trạng         :   Giao Dịch Thành Công \n\n";
         }
         else {
@@ -482,7 +493,7 @@ void inhoadon(string s, int point, long long tien, string mgd) {
             out << "Transaction ID    :   " << mgd << endl;
             out << "Transaction Type  :   Online Deposit" << endl;
             out << "From Account      :   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
-            out << "Transaction Amount:   " << tien << endl;
+            out << "Transaction Amount:   " << chuanhoatien(tien) << " VND" << endl;
             out << "Status            :   Transaction Successful \n\n";
         }
     }
@@ -493,7 +504,7 @@ void inhoadon(string s, int point, long long tien, string mgd) {
             out << "Mã Giao Dịch       :   " << mgd << endl;
             out << "Loại Giao Dịch     :   Rút Tiền Trực Tuyến" << endl;
             out << "Tài Khoản Thực Hiện:   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
-            out << "Số Tiền Giao Dịch  :   " << tien << endl;
+            out << "Số Tiền Giao Dịch  :   " << chuanhoatien(tien) << " VND" << endl;
             out << "Tình Trạng         :   Giao Dịch Thành Công \n\n";
         }
         else {
@@ -501,7 +512,7 @@ void inhoadon(string s, int point, long long tien, string mgd) {
             out << "Transaction ID    :   " << mgd << endl;
             out << "Transaction Type  :   Online Withdrawal" << endl;
             out << "From Account      :   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
-            out << "Transaction Amount:   " << tien << endl;
+            out << "Transaction Amount:   " << chuanhoatien(tien) << " VND" <<  endl;
             out << "Status            :   Transaction Successful \n\n";
         }
     }
@@ -512,7 +523,7 @@ void inhoadon(string s, int point, long long tien, string mgd) {
             out << "Loại Giao Dịch     :   Chuyển Tiền Trực Tuyến" << endl;
             out << "Tài Khoản Thực Hiện:   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
             out << "Tai khoan thu huong:   " << accounts[point].Ten << " - " << accounts[point].SoTaiKhoan << endl;
-            out << "Số Tiền Giao Dịch  :   " << tien << endl;
+            out << "Số Tiền Giao Dịch  :   " << chuanhoatien(tien) << " VND" << endl;
             out << "Tình Trạng         :   Giao Dịch Thành Công \n\n";
         }
         else {
@@ -521,7 +532,7 @@ void inhoadon(string s, int point, long long tien, string mgd) {
             out << "Transaction Type  :   Online Transfer" << endl;
             out << "From Account      :   " << accounts[x].Ten << " - " << accounts[x].SoTaiKhoan << endl;
             out << "Receiving Account :   " << accounts[point].Ten << " - " << accounts[point].SoTaiKhoan << endl;
-            out << "Transaction Amount:   " << tien << endl;
+            out << "Transaction Amount:   " << chuanhoatien(tien) << " VND" << endl;
             out << "Status            :   Transaction Successful \n\n";
         }
     }
@@ -536,38 +547,38 @@ void biendong(int point, string mgd, string type, long long tien) {
     out << realtime() << "|" << mgd << "|";
     if (type == "naptien") {
         if (lang == 1)
-            out << "Nap Tien      |+" << tien << " VND";
-        else out << "Deposit       |+" << tien << " VND";
-        string c = to_string(tien);
+            out << "Nap Tien      |+" << chuanhoatien(tien) << " VND";
+        else out << "Deposit       |+" << chuanhoatien(tien) << " VND";
+        string c = chuanhoatien(tien);
         for (int i = 17; i >= c.size() + 5; --i) out << " ";
-        out << "|     NHLongg Bank     |SUCCESS       |" << accounts[x].SoDu << " VND";
-        c = to_string(accounts[x].SoDu);
+        out << "|     NHLongg Bank     |SUCCESS       |" << chuanhoatien(accounts[x].SoDu) << " VND";
+        c = chuanhoatien(accounts[x].SoDu);
         for (int i = 17; i >= c.size() + 4; --i) out << " ";
         out << "|";
     }
     else
     if (type == "ruttien") {
         if (lang == 1)
-            out << "Rut Tien      |-" << tien << " VND";
-        else out << "Withdrawal    |-" << tien << " VND";
-        string c = to_string(tien);
+            out << "Rut Tien      |-" << chuanhoatien(tien) << " VND";
+        else out << "Withdrawal    |-" << chuanhoatien(tien) << " VND";
+        string c = chuanhoatien(tien);
         for (int i = 17; i >= c.size() + 5; --i) out << " ";
-        out << "|     NHLongg Bank     |SUCCESS       |" << accounts[x].SoDu << " VND";
-        c = to_string(accounts[x].SoDu);
+        out << "|     NHLongg Bank     |SUCCESS       |" << chuanhoatien(accounts[x].SoDu) << " VND";
+        c = chuanhoatien(accounts[x].SoDu);
         for (int i = 17; i >= c.size() + 4; --i) out << " ";
         out << "|";
     }
     else
     if (type == "chuyentien") {
         if (lang == 1)
-            out << "Chuyen Tien   |-" << tien << " VND";
-        else out << "Transfer      |-" << tien << " VND";
-        string c = to_string(tien);
+            out << "Chuyen Tien   |-" << chuanhoatien(tien) << " VND";
+        else out << "Transfer      |-" << chuanhoatien(tien) << " VND";
+        string c = chuanhoatien(tien);
         for (int i = 17; i >= c.size() + 5; --i) out << " ";
         out << "|" << accounts[point].Ten;
         for (int i = 21; i >= accounts[point].Ten.size(); --i) out << " ";
-        out << "|SUCCESS       |" << accounts[x].SoDu << " VND";
-        c = to_string(accounts[x].SoDu);
+        out << "|SUCCESS       |" << chuanhoatien(accounts[x].SoDu) << " VND";
+        c = chuanhoatien(accounts[x].SoDu);
         for (int i = 17; i >= c.size() + 4; --i) out << " ";
         out << "|";
     }
@@ -578,14 +589,14 @@ void biendongnhantien(int point, string mgd, long long tien, int x) {
     ofstream out(accounts[point].Ten + "_Balance_Fluctuations.txt", ios::app);
     out << realtime() << "|" << mgd << "|";
     if (lang == 1)
-        out << "Nhan Tien     |+" << tien << " VND";
-    else out << "Incoming      |+" << tien << " VND";
-    string c = to_string(tien);
+        out << "Nhan Tien     |+" << chuanhoatien(tien) << " VND";
+    else out << "Incoming      |+" << chuanhoatien(tien) << " VND";
+    string c = chuanhoatien(tien);
     for (int i = 17; i >= c.size() + 5; --i) out << " ";
     out << "|" << accounts[x].Ten;
     for (int i = 21; i >= accounts[x].Ten.size(); --i) out << " ";
-    out << "|SUCCESS       |" << accounts[point].SoDu << " VND";
-    c = to_string(accounts[point].SoDu);
+    out << "|SUCCESS       |" << chuanhoatien(accounts[point].SoDu) << " VND";
+    c = chuanhoatien(accounts[point].SoDu);
     for (int i = 17; i >= c.size() + 4; --i) out << " ";
     out << "|";
     out << "\n";
@@ -615,15 +626,15 @@ void naptien() {
         if (lang == 1) {
             cout << "Nạp Tiền Thành Công!" << endl;
             cout << "Mã Giao Dịch  : " << mgd << endl;
-            cout << "Số Tiền Đã Nạp: " << tien << " VND" << endl;
-            cout << "Số Dư Hiện Tại: " << accounts[x].SoDu << " VND" << endl;
+            cout << "Số Tiền Đã Nạp: " << chuanhoatien(tien) << " VND" << endl;
+            cout << "Số Dư Hiện Tại: " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
             cout << "Chi Tiết Giao Dịch Đã Được Tạo Thành Công!" << endl;
         }
         else {
             cout << "Deposit Successful!" << endl;
             cout << "Transaction ID  : " << mgd << endl;
-            cout << "Deposited Amount: " << tien << " VND" << endl;
-            cout << "Current Balance : " << accounts[x].SoDu << " VND" << endl;
+            cout << "Deposited Amount: " << chuanhoatien(tien) << " VND" << endl;
+            cout << "Current Balance : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
             cout << "Transaction Details Have Been Successfully Created!" << endl;
         }
         inhoadon("naptien", 0, tien, mgd);
@@ -664,15 +675,15 @@ void ruttien() {
         if (lang == 1) {
             cout << "Rút Tiền Thành Công!" << endl;
             cout << "Mã Giao Dịch  : " << mgd << endl;
-            cout << "Số Tiền Đã Rút: " << tien << " VND" << endl;
-            cout << "Số Dư Hiện Tại: " << accounts[x].SoDu << endl;
+            cout << "Số Tiền Đã Rút: " << chuanhoatien(tien) << " VND" << endl;
+            cout << "Số Dư Hiện Tại: " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
             cout << "Chi Tiết Giao Dịch Đã Được Tạo Thành CÔng!" << endl;
         }
         else {
             cout << "Withdraw Successful!" << endl;
             cout << "Transaction ID   : " << mgd << endl;
-            cout << "Withdrawal Amount: " << tien << " VND" << endl;
-            cout << "Current Balance  : " << accounts[x].SoDu << endl;
+            cout << "Withdrawal Amount: " << chuanhoatien(tien) << " VND" << endl;
+            cout << "Current Balance  : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
             cout << "Transaction Details Have Been Successfully Created!" << endl;
         }
         inhoadon("ruttien", 0, tien, mgd);
@@ -720,16 +731,16 @@ void chuyen(int point) {
             cout << "Giao Dịch Thành Công!\n";
             cout << "Mã Giao Dịch  : " << mgd << endl;
             cout << "Người nhận    : " << accounts[point].Ten << endl;
-            cout << "Số Tiền Chuyển: " << tien << " VND" << endl;
-            cout << "Số Dư Còn Lại : " << accounts[x].SoDu << endl;
+            cout << "Số Tiền Chuyển: " << chuanhoatien(tien) << " VND" << endl;
+            cout << "Số Dư Còn Lại : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
             cout << "Chi Tiết Giao Dịch Đã Được Tạo Thành Công!" << endl;
         }
         else {
             cout << "Transaction successful!\n";
             cout << "Transaction ID    : " << mgd << endl;
             cout << "Recipient Name    : " << accounts[point].Ten << endl;
-            cout << "Transferred Amount: " << tien << " VND" << endl;
-            cout << "Remaining Balance : " << accounts[x].SoDu << endl;
+            cout << "Transferred Amount: " << chuanhoatien(tien) << " VND" << endl;
+            cout << "Remaining Balance : " << chuanhoatien(accounts[x].SoDu) << " VND" << endl;
             cout << "Transaction Details Have Been Successfully C8reated!" << endl;
         }
         inhoadon("chuyentien", point, tien, mgd);
