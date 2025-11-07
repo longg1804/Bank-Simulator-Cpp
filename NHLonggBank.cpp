@@ -963,14 +963,19 @@ void doipin() {
 void biendongsodu() {
     ifstream file(accounts[x].Ten + "_Balance_Fluctuations.txt");
     header();
-    cout << "Biến Động Số Dư: \n";
     if (lang == 1)
-        cout << "     Thoi Gian	   |     Ma GD     |     Loai     |     So Tien      |       Đoi Tac        |  Trang Thai  |     So Du Sau    |\n";
-    else cout << "       Time        |Transaction ID |     Type     |      Amount      |        Partner       |    Status    |   Balance After  |\n";
+        cout << "Biến Động Số Dư: \n";
+    else cout << "Balance Fluctuations: \n";
+    cout << "--------------------------------------------------------------------------------------------------------------------------------\n";
+    if (lang == 1)
+        cout << "|     Thoi Gian	    |     Ma GD     |     Loai     |     So Tien      |       Đoi Tac        |  Trang Thai  |     So Du Sau    |\n";
+    else cout << "|       Time        |Transaction ID |     Type     |      Amount      |        Partner       |    Status    |   Balance After  |\n";
+    cout << "--------------------------------------------------------------------------------------------------------------------------------\n";
     string line;
     while (getline(file, line)) {
-        cout << line << endl;
+        cout << "|" << line << endl;
     }
+    cout << "--------------------------------------------------------------------------------------------------------------------------------\n";
     file.close();
     pause_anykey();
 }
