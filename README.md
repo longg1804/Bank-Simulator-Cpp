@@ -8,6 +8,7 @@
 |28/09/2025 | - Add PIN Code. <br> - Add some PIN-related features. |
 |28/09/2025 | - Remove unnecessary void functions.<br> - Rewrite the code. |
 |27/09/2025 | - Update `NHLonggBank.cpp` file.<br> - Detected and fixed some bugs. <br> - Improved some few features. | 
+|08/11/2025 | - Improve UI and optimize features. |
 
 **How To Use:**
 - Download `NHLonggBank.cpp` file. <br>
